@@ -27,30 +27,11 @@
 
 <body>
     <!--main contents start from here-->
-    <body data-spy="scroll" data-target=".navbar" data-offset="100">
-        <div class="view">
-            <div class="container">
-                <h1>join game</h1>
-                <!-- Enter Room Code -->
-                <div class="row">
-                    <div class="col-sm-4">
+    <!-- <body data-spy="scroll" data-target=".navbar" data-offset="100"> -->
+                <!-- <h1>join game</h1>
                         <h2 class="jointext">room code: </h2>
-                    </div>
-                    <div class="col-sm-8">
-                        <input class="joininput" id="playcode" type="text" placeholder="Enter Code">
-                    </div>
-                </div>
-                <!-- Enter Player Name -->
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h2 class="jointext">player name: </h2>
-                    </div>
-                    <div class="col-sm-8">
-                        <input class="joininput" id="playname" type="text" placeholder="Enter Name">
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <input class="joininput" id="playcode" type="text" placeholder="Enter Code"> -->
+                    <button onclick="pressButton()">Press Me</button>
 
                 <!-- The core Firebase JS SDK is always required and must be listed first -->
                 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -58,7 +39,8 @@
                 <!-- TODO: Add SDKs for Firebase products that you want to use
                 https://firebase.google.com/docs/web/setup#available-libraries -->
                 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
-        
+                <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
+
                 <script>
                 // Your web app's Firebase configuration
                 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -74,15 +56,13 @@
                 // Initialize Firebase
                 firebase.initializeApp(firebaseConfig);
                 firebase.analytics();
+
+                function pressButton() {
+                    window.alert("Wenaaaa sotooo")
+                    firebase.database().ref().child("Value").set("Some value")
+                }
                 </script>
-        
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        
+                
         <!-- script file  -->
         <script src="script.js"></script>
 
