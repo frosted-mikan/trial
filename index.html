@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Firebase Realtime Database</title>
+    <title>Firebase Trial</title>
 
     <meta
       name="viewport"
@@ -20,6 +20,8 @@
       <option>Other</option> </select
     ><br />
     <button id="register">Register</button>
+    <!-- <ul id="loclist"><li>Mice Infested Apartment</li></ul> -->
+    <span id='answer'></span>
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -77,66 +79,7 @@
         validateForm();
       });
 
-      const readFromDatabaseOn = (id) => {
-        firebase
-          .database()
-          .ref(id)
-          .on("value", function (snapshot) {
-            console.log(snapshot.val().name);
-            console.log(snapshot.val().user);
-            console.log(snapshot.val().gender);
-          });
-      };
-
-      const readFromDatabaseOnce = (id) => {
-        firebase
-          .database()
-          .ref(id)
-          .once("value", function (snapshot) {
-            console.log(snapshot.val().name);
-            console.log(snapshot.val().user);
-            console.log(snapshot.val().gender);
-          });
-      };
-
-      const readMultipleNodesFromDatabase = () => {
-        firebase
-          .database()
-          .ref("Registration")
-          .once("value", function (snapshot) {
-            x = 0;
-            snapshot.forEach(function (childSnapshot) {
-              console.log("user " + x);
-              console.log(childSnapshot.val().name);
-              console.log(childSnapshot.val().user);
-              console.log(childSnapshot.val().gender);
-              console.log(
-                childSnapshot.val().age == undefined
-                  ? ""
-                  : childSnapshot.val().age
-              );
-              console.log(" ");
-              x++;
-            });
-          });
-      };
-
-      const updateUserDetails = (id, age) => {
-        firebase
-          .database()
-          .ref("Registration/" + id)
-          .update({
-            age: age,
-          });
-      };
-
-      const removeUserDetails = (id) => {
-        firebase
-          .database()
-          .ref("Registration/" + id)
-          .remove();
-      };
-
     </script>
+    <script src = "script.js"></script>
   </body>
 </html>
