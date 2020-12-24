@@ -12,7 +12,7 @@
     <h1>In Game</h1>
     <h2>Role</h2>
     <!-- Your own role will appear here  -->
-    <h3 id="role"></h3>
+    <h3 id='role'></h3>
     <h2>Players</h2>
     <!-- List of players will appear here  -->
     <span id='answer'></span>
@@ -44,10 +44,14 @@
       firebase.initializeApp(firebaseConfig);
       // firebase.analytics();
     </script>
-
-    <!-- how to get correct roomcode from other pages?? -->
-    <!-- Want writeList here, but without the checkCondition -->
-    <!-- <script>writeList(5);</script> -->
+    <script>
+      const roomcode = sessionStorage["code"];
+      const name = sessionStorage["name"];
+    </script>
     <script src = "script.js"></script>
+    <script>
+      window.onload = listSuspects(roomcode);
+      window.onload = getRole(name);
+    </script>
   </body>
 </html>

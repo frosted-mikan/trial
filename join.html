@@ -14,7 +14,7 @@
     <input type="text" id="form-name" /><br />
     Code<br />
     <input type="text" id="form-code" /><br />
-    <button id="register" onclick="writeList(document.getElementById('form-code').value)">Start</button>
+    <button id="register" onclick="writeList(document.getElementById('form-code').value)">Register</button>
     <!-- List of players as they join game will appear here  -->
     <h2>Players So Far</h2>
     <span id='answer'></span>
@@ -51,8 +51,8 @@
       const validateForm = () => {
         const name = document.querySelector("#form-name").value;
         const roomcode = document.querySelector("#form-code").value;
-
-        // const gender = document.querySelector("#form-gender").value;
+        sessionStorage["code"] = roomcode;
+        sessionStorage["name"] = name;
 
         if (name.trim() == "" || roomcode.trim() == "") {
           alert("form not completely filled");
@@ -69,7 +69,7 @@
         // var index = getIndex();
         firebase
           .database()
-          .ref("Players/" + i) //what is "Date.now()"?
+          .ref("Players/" + i) // + Date.now()
           .set({
             name: name,
             roomcode: roomcode,

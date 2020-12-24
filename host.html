@@ -17,6 +17,7 @@
     <h2 id="roomcodehere"></h2>
     <button id="register" onclick="writeList(roomcode)">Register</button>
     <button id="start" onclick= "pickSpy(2, roomcode)">Start Game</button> 
+
     <!-- <button id="start" onclick= "pickAgain()">Start Game</button>  -->
 
     <!-- List of players as they join game will appear here  -->
@@ -52,14 +53,14 @@
     </script>
 
     <script>
-        const roomcode = Math.floor(Math.random() * 10);
+        const roomcode = Math.floor(Math.random() * 10); //random number 1-10 for now
+        sessionStorage["code"] = roomcode;
         document.getElementById("roomcodehere").innerHTML = roomcode;
 
       const validateForm = () => {
         const name = document.querySelector("#form-name").value;
-        // const roomcode = document.querySelector("#form-code").value;
-        // const roomcode = "ABCDE"; //should be generated randomly later
-
+        sessionStorage["name"] = name;
+        
         if (name.trim() == "") {
           alert("form not completely filled");
         } else {
@@ -70,11 +71,15 @@
       };
 
       const writeToDatabase = (name, roomcode) => {
-        // var index = getIndex();
+        // var index = 0;
+        // getIndex(function(returnVal){
+        //     index = returnVal;
+        // });
         // alert(index);
+
         firebase
           .database()
-          .ref("Players/" + 1) 
+          .ref("Players/" + 1) // + Date.now()
           .set({
             name: name,
             roomcode: roomcode,

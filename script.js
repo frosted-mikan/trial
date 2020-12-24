@@ -20,6 +20,85 @@ function writeList(roomcode){
     checkCondition(roomcode); //call and keep checking
 }
 
+function listSuspects(roomcode){
+    ref.on('value', function(snap) { 
+        //re-initializes answer in html, so doesn't repeat
+        document.getElementById("answer").innerHTML = "";
+        //gets values for each element in data set   
+    
+        snap.forEach(function(child){
+            if (child.val().roomcode == roomcode) { 
+                document.getElementById("answer").innerHTML += "<li>" + child.val().name + "</li>";
+            }
+        });
+    });        
+}
+
+function getRole(playername){
+    ref.on('value', function(snap) { 
+        document.getElementById("role").innerHTML = "";    
+        snap.forEach(function(child){
+            if (child.val().name == playername) { 
+                document.getElementById("role").innerHTML += "<li>" + child.val().role + "</li>";
+            }
+        });
+    });        
+}
+
+// var ref = firebase.database().ref("dinosaurs");
+// ref.orderByKey().on("child_added", function(snapshot) {
+//   console.log(snapshot.key);
+// });
+
+// var ref = new Firebase('https://yours.firebaseio.com/items');
+// var lastKnownKey = null;
+// var firstQuery = ref.orderByKey().limitToFirst(100);
+// firstQuery.once('value', function(snapshot) {
+//   snapshot.forEach(function(childSnapshot) {
+//     lastKnownKey = childSnapshot.key();
+//   });
+// });
+
+// function getprofile() {
+//     return firebase.database().ref('users/'+useruid+'/')
+//     .once('value')
+//     .then(function(bref) {
+//         var username= bref.val().username;
+//         var provider= bref.val().provider;
+//         var submitedpic=bref.val().profilepic;
+//         var storageRef = firebase.storage().ref();
+//         console.log("The current ID is: "+useruid+" and the current username is: "+username+'/provider is: '+provider+'/pic is :'+submitedpic);
+//         // return the values here, in the form of an object
+//         return {
+//             useruid: useruid,
+//             username: username,
+//             provider: provider,
+//             submitedpic: submitedpic,
+//             storageRef: storageRef
+//         };
+//         // or simply return the value returned by firebase
+//         /*
+//         return bref;
+//         */
+//     });
+// }
+
+// async function getIndex() {
+//     // var lastKey = null;
+//     firstQuery.once('value', function(snap){
+//         snap.forEach(function(childSnap){
+//             // lastKey = childSnap.key();
+//             // return lastKey;
+//             // return childSnap.key();
+//             // var lastKey = childSnap.key;
+//             // return lastKey;
+//             const lastKey = await childSnap.key();
+//             return lastKey;
+//         });
+//     });
+// }
+
+
 // //makes count
 // function makeCount(count) {
 //     firebase.database().ref('Count/').set({
@@ -58,6 +137,8 @@ function writeList(roomcode){
 //     });
 // }
 
+
+//due to the overriding index of key names for players, this doesn't work in practical situations
 function pickSpy(numPlayers, roomcode) {
     var pick = false;
     while (!pick){
@@ -72,7 +153,6 @@ function pickSpy(numPlayers, roomcode) {
             }
         });     
     }
-
     startGame(roomcode);
 }
 
