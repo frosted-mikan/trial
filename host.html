@@ -11,18 +11,14 @@
   <body>
     <h1>Host Game</h1>
     Name<br />
-    <input type="text" id="form-name" /><br />
+    <!-- have this only go once -->
+    <input type="text" id="form-name" /><br />  
     Code<br />
-    <h2>ABCDE</h2>
-    <!-- <input type="text" id="form-code" /><br /> -->
+    <h2 id="roomcodehere"></h2>
+    <button id="register" onclick="writeList(roomcode)">Register</button>
+    <button id="start" onclick= "pickSpy(2, roomcode)">Start Game</button> 
+    <!-- <button id="start" onclick= "pickAgain()">Start Game</button>  -->
 
-    <!-- Gender<br />
-    <select id="form-gender">
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option> </select
-    ><br /> -->
-    <button id="register">Start</button>
     <!-- List of players as they join game will appear here  -->
     <h2>Players So Far</h2>
     <span id='answer'></span>
@@ -56,30 +52,45 @@
     </script>
 
     <script>
+        const roomcode = Math.floor(Math.random() * 10);
+        document.getElementById("roomcodehere").innerHTML = roomcode;
+
       const validateForm = () => {
         const name = document.querySelector("#form-name").value;
         // const roomcode = document.querySelector("#form-code").value;
-        const roomcode = "ABCDE"; //should be generated randomly later
-        // const gender = document.querySelector("#form-gender").value;
+        // const roomcode = "ABCDE"; //should be generated randomly later
 
-        if (name.trim() == "" || roomcode.trim() == "") {
+        if (name.trim() == "") {
           alert("form not completely filled");
         } else {
           writeToDatabase(name, roomcode);
+          createGame(roomcode);
+        //   makeCount(1);
         }
       };
 
       const writeToDatabase = (name, roomcode) => {
+        // var index = getIndex();
+        // alert(index);
         firebase
           .database()
-          .ref("Players/" + Date.now()) //what is "date.now()"?
+          .ref("Players/" + 1) 
           .set({
             name: name,
             roomcode: roomcode,
+            role: "none"
           });
       };
 
-      // const createNewgame (roomcode); list of just game codes, use to check whether a game exists
+      const createGame = (roomcode) => {
+          firebase 
+          .database()
+          .ref("Games/" + roomcode)
+          .set({
+              time: 5,
+              status: false
+          });
+      };
 
       //Validate that things have been entered
       document.querySelector("#register").addEventListener("click", () => {

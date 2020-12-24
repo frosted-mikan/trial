@@ -9,14 +9,12 @@
     />
   </head>
   <body>
-    <h1>Join Game</h1>
-    Name<br />
-    <input type="text" id="form-name" /><br />
-    Code<br />
-    <input type="text" id="form-code" /><br />
-    <button id="register" onclick="writeList(document.getElementById('form-code').value)">Start</button>
-    <!-- List of players as they join game will appear here  -->
-    <h2>Players So Far</h2>
+    <h1>In Game</h1>
+    <h2>Role</h2>
+    <!-- Your own role will appear here  -->
+    <h3 id="role"></h3>
+    <h2>Players</h2>
+    <!-- List of players will appear here  -->
     <span id='answer'></span>
 
 
@@ -47,42 +45,9 @@
       // firebase.analytics();
     </script>
 
-    <script>
-      const validateForm = () => {
-        const name = document.querySelector("#form-name").value;
-        const roomcode = document.querySelector("#form-code").value;
-
-        // const gender = document.querySelector("#form-gender").value;
-
-        if (name.trim() == "" || roomcode.trim() == "") {
-          alert("form not completely filled");
-        } else {
-          writeToDatabase(name, roomcode);
-          //updateCount();
-        }
-      };
-
-      //this needs to be the number of players overall in database, else it will reset every time
-      //Keep a running count in database?
-      var i = 2;
-      const writeToDatabase = (name, roomcode, index) => {
-        // var index = getIndex();
-        firebase
-          .database()
-          .ref("Players/" + i) //what is "Date.now()"?
-          .set({
-            name: name,
-            roomcode: roomcode,
-            role: "none"
-          });
-          ++i;
-      };
-
-      document.querySelector("#register").addEventListener("click", () => {
-        validateForm();
-      });
-
-    </script>
+    <!-- how to get correct roomcode from other pages?? -->
+    <!-- Want writeList here, but without the checkCondition -->
+    <!-- <script>writeList(5);</script> -->
     <script src = "script.js"></script>
   </body>
 </html>
