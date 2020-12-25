@@ -2,27 +2,41 @@
 <html>
   <head>
     <title>Firebase Trial</title>
+    <!-- Bootstrap Core CSS ––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
   </head>
+
   <body>
     <h1>Host Game</h1>
     Name<br />
-    <!-- have this only go once -->
+    <!-- TODO: have this only go once -->
     <input type="text" id="form-name" /><br />  
     Code<br />
     <h2 id="roomcodehere"></h2>
     <button id="register" onclick="writeList(roomcode)">Register</button>
-    <button id="start" onclick= "pickSpy(2, roomcode)">Start Game</button> 
-
-    <!-- <button id="start" onclick= "pickAgain()">Start Game</button>  -->
+    <!-- <button id="start" onclick= "pickSpy(4, roomcode)">Start Game</button>  -->
+    <button id="start" onclick= "pickSpy(4, roomcode)">Start Game</button> 
 
     <!-- List of players as they join game will appear here  -->
-    <h2>Players So Far</h2>
-    <span id='answer'></span>
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Players So Far</h2>
+            <span id='answer'></span>        
+        </div>
+        <div class="col-sm-6">
+            <h2>Enter locations: </h2>
+            <input type="text" id="loc-form"/><br />
+            <button id="loc-but" onclick="writeLocations(roomcode)">Enter</button>
+            <span id="location"></span>        
+        </div>
+    </div>
+    </div>
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -77,9 +91,11 @@
         // });
         // alert(index);
 
+        // var playerid = Math.random().toString(36).substr(2, 9);
+        // sessionStorage["playerid"] = playerid;
         firebase
           .database()
-          .ref("Players/" + 1) // + Date.now()
+          .ref("Players/" + 1) // + Date.now() or + playerid; Maybe IP address? 
           .set({
             name: name,
             roomcode: roomcode,
@@ -93,13 +109,32 @@
           .ref("Games/" + roomcode)
           .set({
               time: 5,
-              status: false
+              status: false,
+              vote: false,
+              winner: "unknown"
           });
+      };
+
+      var j = 1;
+      const addLocation = (location, roomcode) => {
+          firebase 
+          .database()
+          .ref("Locations/" + j) //Date.now()
+          .set({
+              location: location,
+              roomcode: roomcode,
+              role: "none"
+          });
+          ++j
       };
 
       //Validate that things have been entered
       document.querySelector("#register").addEventListener("click", () => {
         validateForm();
+      });
+
+      document.querySelector("#loc-but").addEventListener("click", () => {
+        addLocation(document.getElementById('loc-form').value, roomcode);
       });
 
     </script>

@@ -67,9 +67,12 @@
       var i = 2;
       const writeToDatabase = (name, roomcode, index) => {
         // var index = getIndex();
+        // var playerid = Math.random().toString(36).substr(2, 9);
+        // sessionStorage["playerid"] = playerid;
+
         firebase
           .database()
-          .ref("Players/" + i) // + Date.now()
+          .ref("Players/" + i) // + Date.now(), + playerid
           .set({
             name: name,
             roomcode: roomcode,

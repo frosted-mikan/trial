@@ -2,8 +2,6 @@
 <html>
   <head>
     <title>Firebase Trial</title>
-    <!-- Bootstrap Core CSS ––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <meta
       name="viewport"
@@ -11,27 +9,16 @@
     />
   </head>
   <body>
-    <h1>In Game</h1>
-    <h2>Role</h2>
-    <!-- Your own role will appear here  -->
-    <h3 id='role'></h3>
+    <h1>Vote</h1>
+    <a href = "index.html">Back to start</a>
+    <!-- Whether you voted correctly will appear here  -->
+    <h2 id="gameresult"></h2>RESULT<br />
+    <input type="text" id="votechoice"/><br />
+    <button onclick="voteResult(document.getElementById('votechoice').value, roomcode)">Enter Vote</button>
+    <!-- List of things to vote for will appear here -->
+    <span id="location"></span>
+    <span id="answer"></span>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <h2>Players</h2>
-          <!-- List of players will appear here  -->
-          <span id='answer'></span>      
-        </div>
-        <div class="col-sm-6">
-          <h2>Locations</h2>
-          <!-- List of locations will appear here  -->
-          <span id='location'></span>
-        </div>
-      </div>
-    </div>
-
-    <button onclick="startVote(roomcode)">Vote</button>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -65,10 +52,8 @@
     </script>
     <script src = "script.js"></script>
     <script>
-      window.onload = listSuspects(roomcode);
-      window.onload = getRole(name);
-      window.onload = writeLocations(roomcode);
-      window.onload = checkVote(roomcode);       
+      window.onload = getVoteList(name, roomcode);
+      window.onload = checkWin(roomcode);
     </script>
   </body>
 </html>
