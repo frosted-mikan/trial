@@ -7,6 +7,9 @@ var ref = rootRef.child('Players');
 //creates ref for locations 
 var locref = rootRef.child('Locations');
 
+//creates ref for games
+var gameref = roofRef.child('Games');
+
 //Write list of suspects on pre-game screen
 function writeList(roomcode){
     // gets values from database and changes html
